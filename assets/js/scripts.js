@@ -14,14 +14,14 @@ class Contender{
     }
 
     setType(type){
-        debugger;
+        // debugger;
         this.type = type;
     }
 
     changePosition(){
        this.position = getRandomInt(3);
     //    console.log(bodyPosition[this.position]);
-       console.log(this.type + ' position is "' + bodyPosition[this.position] + '"');
+       console.log(this.type + ' position is "' + bodyPosition[this.position] + '" code = ' +  this.position);
 
     //    this.postionExchangeInterval = setTimeout(this.changePosition, 1000);
     }
@@ -36,7 +36,7 @@ class Contender{
         this.myContender.updateScore(points*-1);
         // check how wins
         // if ((this.lifeMetter == 0) || (this.myContender.updateScore == 0)) {
-        if (this.myContender.lifeMetter == 0 || this.updateScore == 0) {
+        if (this.myContender.lifeMetter == 0 || this.lifeMetter == 0) {
             this.gameOver();
             this.myContender.gameOver();
             if (this.lifeMetter = 100) {
@@ -60,24 +60,37 @@ class Contender{
 }
 
 class aiContender extends Contender {
-    strickInterval;
+    aiStrickInterval;
 
     constructor(type){
-        debugger;
+        // debugger;
       super(type); 
-      this.aiOn = false;
+      this.aiStatus = false;
     }
 
-    set aiStatus(staus = true){
-        debugger;
-        this.aiOn = staus;
-        if (this.aiOn === true) {
-            this.strickInterval = setInterval(this.Contender.recieveAstrick, 1000);
+    set aiOn(status = true){
+        // debugger;
+        this.aiStatus = status;
+        if (this.aiStatus === true) {
+            this.aiStrickInterval = setInterval(this.giveAscrick(this), 1000);
         }
         else {
-            clearInterval(this.strickInterval);
+            debugger;
+            clearInterval(this.aiStrickInterval);
         }
     }
+
+    giveAscrick(mythis){
+        // debugger;
+        mythis.myContender.recieveAstrick();
+    }
+
+    gameOver(){
+        supper.gameOver();
+        this.aiOn = false;
+
+    }
+
 }
 
 let myAiContender = new aiContender("Cat");
@@ -87,7 +100,7 @@ function initTheGame(){
     myAiContender.myContender = myContender;
     myContender.myContender = myAiContender;
     //
-    // myAiContender.aiStatus(true);
+    myAiContender.aiOn = true;
 }
 
 function stopTheGame(){
