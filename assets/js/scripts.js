@@ -30,10 +30,26 @@ class Contender{
         let points = bodyPositionPoints[striker.position] - bodyPositionPoints[this.position];
         this.updateScore(points);
         striker.updateScore(points*-1);
+        // check how wins
+        // if ((this.lifeMetter == 0) || (striker.updateScore == 0)) {
+        if (striker.lifeMetter == 0 || this.updateScore == 0) {
+            this.gameOver();
+            striker.gameOver();
+            if (this.lifeMetter = 100) {
+                console.log(this.type + ' wins!');
+            } else {
+                console.log(striker.type + ' wins!');
+            }
+        } 
     }
 
     updateScore(points){
         this.lifeMetter = (this.lifeMetter - points);
+        if (this.lifeMetter > 100) {
+            this.lifeMetter = 100;   
+        } else if (this.lifeMetter <= 0) {
+            this.lifeMetter = 0;   
+        }
         console.log(this.type + ' lifeMetter = ' + this.lifeMetter);
     }
 
